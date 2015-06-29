@@ -577,7 +577,7 @@ void IdentifyVersion (void)
     char *doomwaddir;
     doomwaddir = getenv("DOOMWADDIR");
     if (!doomwaddir)
-	doomwaddir = ".";
+	doomwaddir = "/opt/Media/iDoom/IWADs";
 
     // Commercial.
     if (M_CheckParm ("-freedoom")) { // ~Keripo
@@ -616,8 +616,8 @@ void IdentifyVersion (void)
     doom2fwad = malloc(strlen(doomwaddir)+1+10+1);
     sprintf(doom2fwad, "%s/doom2f.wad", doomwaddir);
 
-    home = ".";
-    sprintf(basedefault, "%s/.doomrc", home);
+    home = "/opt/Media/iDoom/Conf";
+    sprintf(basedefault, "%s/doom.rc", home);
 #endif
 
     if (M_CheckParm ("-shdev"))
@@ -820,6 +820,7 @@ void D_DoomMain (void)
     else if (M_CheckParm ("-deathmatch"))
 	deathmatch = 1;
 
+#if 0
     switch ( gamemode )
     {
       case retail:
@@ -876,6 +877,7 @@ void D_DoomMain (void)
     }
     
     printf ("%s\n",title);
+#endif
 
     if (devparm)
 	printf(D_DEVSTR);
@@ -1014,19 +1016,19 @@ void D_DoomMain (void)
     }
     
     // init subsystems
-    printf ("V_Init: allocate screens.\n");
+    //printf ("V_Init: allocate screens.\n");
     V_Init ();
 
-    printf ("M_LoadDefaults: Load system defaults.\n");
+    //printf ("M_LoadDefaults: Load system defaults.\n");
     M_LoadDefaults ();              // load before initing other systems
 
-    printf ("Z_Init: Init zone memory allocation daemon. \n");
+    //printf ("Z_Init: Init zone memory allocation daemon. \n");
     Z_Init ();
 
-    printf ("W_Init: Init WADfiles.\n");
+    //printf ("W_Init: Init WADfiles.\n");
     W_InitMultipleFiles (wadfiles);
     
-
+#if 0
     // Check for -file in shareware
     if (modifiedgame)
     {
@@ -1093,29 +1095,30 @@ void D_DoomMain (void)
 	// Ouch.
 	break;
     }
+#endif
 
-    printf ("M_Init: Init miscellaneous info.\n");
+    //printf ("M_Init: Init miscellaneous info.\n");
     M_Init ();
 
-    printf ("R_Init: Init DOOM refresh daemon - ");
+    //printf ("R_Init: Init DOOM refresh daemon - ");
     R_Init ();
 
-    printf ("\nP_Init: Init Playloop state.\n");
+    //printf ("\nP_Init: Init Playloop state.\n");
     P_Init ();
 
-    printf ("I_Init: Setting up machine state.\n");
+    //printf ("I_Init: Setting up machine state.\n");
     I_Init ();
 
-    printf ("D_CheckNetGame: Checking network game status.\n");
+    //printf ("D_CheckNetGame: Checking network game status.\n");
     D_CheckNetGame ();
 
-    printf ("S_Init: Setting up sound.\n");
+    //printf ("S_Init: Setting up sound.\n");
     S_Init (snd_SfxVolume /* *8 */, snd_MusicVolume /* *8*/ );
 
-    printf ("HU_Init: Setting up heads up display.\n");
+    //printf ("HU_Init: Setting up heads up display.\n");
     HU_Init ();
 
-    printf ("ST_Init: Init status bar.\n");
+    //printf ("ST_Init: Init status bar.\n");
     ST_Init ();
 
     // check for a driver that wants intermission stats
@@ -1126,7 +1129,7 @@ void D_DoomMain (void)
 	extern  void*	statcopy;                            
 
 	statcopy = (void*)atoi(myargv[p+1]);
-	printf ("External statistics registered.\n");
+	//printf ("External statistics registered.\n");
     }
     
     // start the apropriate game based on parms

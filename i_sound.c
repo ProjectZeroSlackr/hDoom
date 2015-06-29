@@ -753,8 +753,8 @@ I_InitSound()
     strcat(buffer, " -quiet");
     sndserver = popen(buffer, "w");
   }
-  else
-    fprintf(stderr, "Could not start sound server [%s]\n", buffer);
+  //else
+    //fprintf(stderr, "Could not start sound server [%s]\n", buffer);
 #else
     
   int i;
